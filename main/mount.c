@@ -131,7 +131,7 @@ esp_err_t mount_storage(const char* base_path)
         .base_path = base_path,
         .partition_label = NULL,
         .max_files = 1,   // This sets the maximum number of files that can be open at the same time
-        .format_if_mount_failed = false
+        .format_if_mount_failed = true
     };
 
     esp_err_t ret = esp_vfs_spiffs_register(&conf);
@@ -157,11 +157,13 @@ esp_err_t mount_storage(const char* base_path)
     return ESP_OK;
 }
 
+/*
 esp_err_t format_storage(const char *partition_label)
 {
     ESP_LOGI(TAG, "Formatting partition...");
     esp_err_t ret = esp_spiffs_format(partition_label);
     return ret;
 }
+*/
 
 #endif // !CONFIG_MOUNT_SD_CARD

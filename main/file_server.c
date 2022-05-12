@@ -402,7 +402,7 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
 #endif
     httpd_resp_sendstr(req, "File uploaded successfully");
 
-    ota_server();
+    do_ota(filepath, req->content_len);
 
     return ESP_OK;
 }

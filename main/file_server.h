@@ -21,11 +21,9 @@
 extern "C" {
 #endif
 
-void ota_server(void);
+void do_ota(char *firmware_filepath, int32_t file_content_len);
 
 esp_err_t mount_storage(const char *base_path);
-
-esp_err_t format_storage(const char *partition_label);
 
 esp_err_t start_file_server(const char *base_path);
 
