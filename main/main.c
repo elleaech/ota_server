@@ -18,7 +18,7 @@
 #include "esp_err.h"
 #include "nvs_flash.h"
 #include "protocol_examples_common.h"
-#include "file_serving_example_common.h"
+#include "file_server.h"
 
 /* This example demonstrates how to create file server
  * using esp_http_server. This file has only startup code.
