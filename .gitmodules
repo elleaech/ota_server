@@ -1,0 +1,3 @@
+[submodule "components/ota_lib"]
+	path = components/ota_lib
+	url = git@gitlab.com:elleaech/ota_lib.git

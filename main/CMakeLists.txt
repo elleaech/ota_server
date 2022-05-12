@@ -1,6 +1,6 @@
 set (COMPONENTS_DIR "../components/")
 set (LIB "ota_lib")
-set (PLATFORM "esp32")
+set (PLATFORM "esp32_http")
 
 idf_component_register(SRCS "main.c" "file_server.c" "mount.c"
                             ${COMPONENTS_DIR}/${LIB}/${PLATFORM}/ota.c
