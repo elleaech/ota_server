@@ -20,10 +20,6 @@
 #include "protocol_examples_common.h"
 #include "file_server.h"
 
-/* This example demonstrates how to create file server
- * using esp_http_server. This file has only startup code.
- * Look in file_server.c for the implementation.
- */
 
 static const char *TAG = "file_server";
 
@@ -46,6 +42,6 @@ void app_main(void)
     ESP_ERROR_CHECK(example_connect());
 
     /* Start the file server */
-    ESP_ERROR_CHECK(example_start_file_server(base_path));
+    ESP_ERROR_CHECK(start_file_server(base_path));
     ESP_LOGI(TAG, "File server started");
 }

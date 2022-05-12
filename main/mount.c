@@ -30,25 +30,25 @@
 
 static const char *TAG = "example_mount";
 
-#ifdef CONFIG_EXAMPLE_MOUNT_SD_CARD
+#ifdef CONFIG_MOUNT_SD_CARD
 
 esp_err_t mount_storage(const char* base_path)
 {
     ESP_LOGI(TAG, "Initializing SD card");
 
     esp_vfs_fat_sdmmc_mount_config_t mount_config = {
-#ifdef CONFIG_EXAMPLE_FORMAT_IF_MOUNT_SDCARD_FAILED
+#ifdef CONFIG_FORMAT_IF_MOUNT_SDCARD_FAILED
         .format_if_mount_failed = true,
 #else
         .format_if_mount_failed = false,
-#endif // CONFIG_EXAMPLE_FORMAT_IF_MOUNT_SDCARD_FAILED
+#endif // CONFIG_FORMAT_IF_MOUNT_SDCARD_FAILED
         .max_files = 5,
         .allocation_unit_size = 16 * 1024
     };
     esp_err_t ret;
     sdmmc_card_t* card;
 
-#ifdef CONFIG_EXAMPLE_USE_SDMMC_HOST
+#ifdef CONFIG_USE_SDMMC_HOST
     ESP_LOGI(TAG, "Using SDMMC peripheral");
     sdmmc_host_t host = SDMMC_HOST_DEFAULT();
 
@@ -61,12 +61,12 @@ esp_err_t mount_storage(const char* base_path)
 
 #ifdef SOC_SDMMC_USE_GPIO_MATRIX
     // For chips which support GPIO Matrix for SDMMC peripheral, specify the pins.
-    slot_config.clk = CONFIG_EXAMPLE_PIN_CLK;
-    slot_config.cmd = CONFIG_EXAMPLE_PIN_CMD;
-    slot_config.d0 = CONFIG_EXAMPLE_PIN_D0;
-    slot_config.d1 = CONFIG_EXAMPLE_PIN_D1;
-    slot_config.d2 = CONFIG_EXAMPLE_PIN_D2;
-    slot_config.d3 = CONFIG_EXAMPLE_PIN_D3;
+    slot_config.clk = CONFIG_PIN_CLK;
+    slot_config.cmd = CONFIG_PIN_CMD;
+    slot_config.d0 = CONFIG_PIN_D0;
+    slot_config.d1 = CONFIG_PIN_D1;
+    slot_config.d2 = CONFIG_PIN_D2;
+    slot_config.d3 = CONFIG_PIN_D3;
 #endif // SOC_SDMMC_USE_GPIO_MATRIX
 
     // Enable internal pullups on enabled pins. The internal pullups
@@ -76,15 +76,15 @@ esp_err_t mount_storage(const char* base_path)
 
     ret = esp_vfs_fat_sdmmc_mount(base_path, &host, &slot_config, &mount_config, &card);
 
-#else // CONFIG_EXAMPLE_USE_SDMMC_HOST
+#else // CONFIG_USE_SDMMC_HOST
 
     ESP_LOGI(TAG, "Using SPI peripheral");
 
     sdmmc_host_t host = SDSPI_HOST_DEFAULT();
     spi_bus_config_t bus_cfg = {
-        .mosi_io_num = CONFIG_EXAMPLE_PIN_MOSI,
-        .miso_io_num = CONFIG_EXAMPLE_PIN_MISO,
-        .sclk_io_num = CONFIG_EXAMPLE_PIN_CLK,
+        .mosi_io_num = CONFIG_PIN_MOSI,
+        .miso_io_num = CONFIG_PIN_MISO,
+        .sclk_io_num = CONFIG_PIN_CLK,
         .quadwp_io_num = -1,
         .quadhd_io_num = -1,
         .max_transfer_sz = 4000,
@@ -99,11 +99,11 @@ esp_err_t mount_storage(const char* base_path)
     // This initializes the slot without card detect (CD) and write protect (WP) signals.
     // Modify slot_config.gpio_cd and slot_config.gpio_wp if your board has these signals.
     sdspi_device_config_t slot_config = SDSPI_DEVICE_CONFIG_DEFAULT();
-    slot_config.gpio_cs = CONFIG_EXAMPLE_PIN_CS;
+    slot_config.gpio_cs = CONFIG_PIN_CS;
     slot_config.host_id = host.slot;
     ret = esp_vfs_fat_sdspi_mount(base_path, &host, &slot_config, &mount_config, &card);
 
-#endif // !CONFIG_EXAMPLE_USE_SDMMC_HOST
+#endif // !CONFIG_USE_SDMMC_HOST
 
     if (ret != ESP_OK){
         if (ret == ESP_FAIL) {
@@ -120,7 +120,7 @@ esp_err_t mount_storage(const char* base_path)
     return ESP_OK;
 }
 
-#else // CONFIG_EXAMPLE_MOUNT_SD_CARD
+#else // CONFIG_MOUNT_SD_CARD
 
 /* Function to initialize SPIFFS */
 esp_err_t mount_storage(const char* base_path)
@@ -164,4 +164,4 @@ esp_err_t format_storage(const char *partition_label)
     return ret;
 }
 
-#endif // !CONFIG_EXAMPLE_MOUNT_SD_CARD
+#endif // !CONFIG_MOUNT_SD_CARD
