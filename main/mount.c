@@ -160,7 +160,7 @@ esp_err_t mount_storage(const char* base_path)
 esp_err_t format_storage(const char *partition_label)
 {
     ESP_LOGI(TAG, "Formatting partition...");
-    esp_err ret = esp_spiffs_format(partition_label);
+    esp_err_t ret = esp_spiffs_format(partition_label);
     return ret;
 }
 
