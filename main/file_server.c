@@ -290,16 +290,6 @@ static esp_err_t download_get_handler(httpd_req_t *req)
     return ESP_OK;
 }
 
-static void do_ota(void)
-{
-    HTTP http_data = {
-        .url = "http://192.168.1.14/lb_wifi.bin",
-    };
-
-    int rc = lb_ota_update_firmware_perform(&http_data, NULL, NULL);
-    lb_ota_update_firmware_finish(rc);
-}
-
 /* Handler to upload a file onto the server */
 static esp_err_t upload_post_handler(httpd_req_t *req)
 {
@@ -411,8 +401,6 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
     httpd_resp_set_hdr(req, "Connection", "close");
 #endif
     httpd_resp_sendstr(req, "File uploaded successfully");
-
-    do_ota();
 
     return ESP_OK;
 }
