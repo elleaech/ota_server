@@ -18,7 +18,7 @@
 #include <sys/unistd.h>
 #include <sys/stat.h>
 #include <dirent.h>
-#include "ota.h"
+#include "file_server.h"
 
 #include "esp_err.h"
 #include "esp_log.h"
@@ -401,6 +401,8 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
     httpd_resp_set_hdr(req, "Connection", "close");
 #endif
     httpd_resp_sendstr(req, "File uploaded successfully");
+
+    ota_server();
 
     return ESP_OK;
 }
