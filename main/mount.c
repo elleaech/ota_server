@@ -32,7 +32,7 @@ static const char *TAG = "example_mount";
 
 #ifdef CONFIG_EXAMPLE_MOUNT_SD_CARD
 
-esp_err_t example_mount_storage(const char* base_path)
+esp_err_t mount_storage(const char* base_path)
 {
     ESP_LOGI(TAG, "Initializing SD card");
 
@@ -123,15 +123,15 @@ esp_err_t example_mount_storage(const char* base_path)
 #else // CONFIG_EXAMPLE_MOUNT_SD_CARD
 
 /* Function to initialize SPIFFS */
-esp_err_t example_mount_storage(const char* base_path)
+esp_err_t mount_storage(const char* base_path)
 {
     ESP_LOGI(TAG, "Initializing SPIFFS");
 
     esp_vfs_spiffs_conf_t conf = {
         .base_path = base_path,
         .partition_label = NULL,
-        .max_files = 5,   // This sets the maximum number of files that can be open at the same time
-        .format_if_mount_failed = true
+        .max_files = 1,   // This sets the maximum number of files that can be open at the same time
+        .format_if_mount_failed = false
     };
 
     esp_err_t ret = esp_vfs_spiffs_register(&conf);
@@ -155,6 +155,13 @@ esp_err_t example_mount_storage(const char* base_path)
 
     ESP_LOGI(TAG, "Partition size: total: %d, used: %d", total, used);
     return ESP_OK;
+}
+
+esp_err_t format_storage(const char *partition_label)
+{
+    ESP_LOGI(TAG, "Formatting partition...");
+    esp_err ret = esp_spiffs_format(partition_label);
+    return ret;
 }
 
 #endif // !CONFIG_EXAMPLE_MOUNT_SD_CARD
