@@ -25,11 +25,11 @@
  * Look in file_server.c for the implementation.
  */
 
-static const char *TAG = "example";
+static const char *TAG = "file_server";
 
 void app_main(void)
 {
-    ESP_LOGI(TAG, "Starting example");
+    ESP_LOGI(TAG, "Starting file server");
     ESP_ERROR_CHECK(nvs_flash_init());
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
