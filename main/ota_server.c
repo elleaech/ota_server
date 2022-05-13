@@ -13,8 +13,8 @@ do_ota(char *firmware_filepath, int32_t file_content_len)
 
     if (NULL != firmware_filepath && file_content_len > 0)
     {
-        ota_data.firmware_filepath = firmware_filepath;
-        ota_data.firmware_content_len = file_content_len;
+        ota_data.firmware.firmware_filepath = firmware_filepath;
+        ota_data.firmware.firmware_content_len = file_content_len;
 
         lb_ota_update_firmware_perform(&ota_data);
         lb_ota_update_firmware_finish(&ota_data);
