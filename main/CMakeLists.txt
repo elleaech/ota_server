@@ -1,6 +1,6 @@
 set (COMPONENTS_DIR "../components/")
 set (LIB "ota_lib")
-set (METHOD "local_ota")
+set (METHOD "native_ota")
 set (LOG "log")
 set (PLATFORM "esp32")
 
